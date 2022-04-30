@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2daa47ad7bf4476f8dcaf92781fb7801" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="FitnessCenterBaseModel.Client" Width="1.5" PointX="3" PointY="3.5" />
+        <EntityTypeShape EntityType="FitnessCenterBaseModel.Gender" Width="1.5" PointX="0.75" PointY="4" />
+        <EntityTypeShape EntityType="FitnessCenterBaseModel.Roles" Width="1.5" PointX="1.5" PointY="7.125" />
+        <EntityTypeShape EntityType="FitnessCenterBaseModel.Specialization" Width="1.5" PointX="3.75" PointY="1" />
+        <EntityTypeShape EntityType="FitnessCenterBaseModel.Trainer" Width="1.5" PointX="6" PointY="3.5" />
+        <EntityTypeShape EntityType="FitnessCenterBaseModel.TrainerSchedule" Width="1.5" PointX="8.25" PointY="3.5" />
+        <EntityTypeShape EntityType="FitnessCenterBaseModel.Users" Width="1.5" PointX="0.75" PointY="0.75" />
+        <AssociationConnector Association="FitnessCenterBaseModel.FK_Client_Gender" />
+        <AssociationConnector Association="FitnessCenterBaseModel.FK_Client_Users" />
+        <AssociationConnector Association="FitnessCenterBaseModel.FK_TrainerSchedule_Client" />
+        <AssociationConnector Association="FitnessCenterBaseModel.FK_Trainer_Gender" />
+        <AssociationConnector Association="FitnessCenterBaseModel.FK_Users_Roles" />
+        <AssociationConnector Association="FitnessCenterBaseModel.FK_Trainer_Specialization" />
+        <AssociationConnector Association="FitnessCenterBaseModel.FK_TrainerSchedule_Trainer" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

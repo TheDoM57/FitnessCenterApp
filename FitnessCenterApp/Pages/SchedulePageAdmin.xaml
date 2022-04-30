@@ -1,0 +1,47 @@
+﻿<Page x:Class="FitnessCenterApp.Pages.SchedulePageAdmin"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FitnessCenterApp.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1000"
+      Title="SchedulePageAdmin">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="130"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Rectangle Fill="{StaticResource AccentColor}"></Rectangle>
+        <Rectangle Fill="{StaticResource AccentColor}" Grid.Row="2"></Rectangle>
+        <TextBlock Text="Расписание" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource TitleText}" Grid.Row="0"></TextBlock>
+        <StackPanel Grid.Row="1">
+            <StackPanel>
+                <Menu Height="25" VerticalAlignment="Top" Foreground="Black">
+                    <MenuItem Header="Тренер">
+                        <MenuItem Header="Добавить тренера" Foreground="Black"></MenuItem>
+                        <MenuItem Header="Удалить тренера" Foreground="Black"></MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="Клиент">
+                        <MenuItem Header="Добавить клиента"></MenuItem>
+                        <MenuItem Header="Удалить клиента"></MenuItem>
+                    </MenuItem>
+                </Menu>
+                <DataGrid Name="DG1" ItemsSource="{Binding}" AutoGenerateColumns="False" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Понедельник"/>
+                        <DataGridTextColumn Header="Вторник"/>
+                        <DataGridTextColumn Header="Среда"/>
+                        <DataGridTextColumn Header="Четверг"/>
+                        <DataGridTextColumn Header="Пятница"/>
+                        <DataGridTextColumn Header="Суббота"/>
+                        <DataGridTextColumn Header="Воскресенье"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </StackPanel>
+        <Button x:Name="BtnExit" Content="Выйти" Click="BtnExit_Click" HorizontalAlignment="Right" Grid.Row="2"></Button>
+    </Grid>
+</Page>
