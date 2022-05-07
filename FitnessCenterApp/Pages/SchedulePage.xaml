@@ -8,39 +8,17 @@
       d:DesignHeight="800" d:DesignWidth="1000"
       Title="SchedulePage">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="130"></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="100"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Rectangle Fill="{StaticResource AccentColor}"/>
-        <Rectangle Fill="{StaticResource AccentColor}" Grid.Row="2"/>
-        <TextBlock Text="Расписание" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource TitleText}" Grid.Row="0"></TextBlock>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="250px"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <StackPanel Background="#d6d6d6">
-                <Button x:Name="ScheduleBtn" Content="Расписание" Click="ScheduleBtn_Click" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="1"></Button>
-                <Button x:Name="TrainerListBtn" Content="Список тренеров" Click="TrainerListBtn_Click" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center"></Button>
-                <Button x:Name="RequestsBtn" Content="Заявки" Click="RequestsBtn_Click" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="1"></Button>
-            </StackPanel>
-            <StackPanel Grid.Column="1" x:Name="DataTextBlock" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <DataGrid Name="DG1" ItemsSource="{Binding}" AutoGenerateColumns="False" >
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Понедельник"/>
-                        <DataGridTextColumn Header="Вторник"/>
-                        <DataGridTextColumn Header="Среда"/>
-                        <DataGridTextColumn Header="Четверг"/>
-                        <DataGridTextColumn Header="Пятница"/>
-                        <DataGridTextColumn Header="Суббота"/>
-                        <DataGridTextColumn Header="Воскресенье"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </StackPanel>
-        </Grid>
-        <Button x:Name="BtnExit" Content="Выйти" Click="BtnExit_Click" HorizontalAlignment="Right" Grid.Row="2"></Button>
-    </Grid>
+    <StackPanel Grid.Column="1" x:Name="DataTextBlock" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <DataGrid Name="DG1" ItemsSource="{Binding}" AutoGenerateColumns="False" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Понедельник"/>
+                <DataGridTextColumn Header="Вторник"/>
+                <DataGridTextColumn Header="Среда"/>
+                <DataGridTextColumn Header="Четверг"/>
+                <DataGridTextColumn Header="Пятница"/>
+                <DataGridTextColumn Header="Суббота"/>
+                <DataGridTextColumn Header="Воскресенье"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
 </Page>

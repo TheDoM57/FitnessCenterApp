@@ -36,7 +36,7 @@
             </StackPanel>
             <StackPanel>
                 <TextBlock Text="Пароль:" Style="{StaticResource DataTextBlock}"></TextBlock>
-                <TextBox></TextBox>
+                <PasswordBox></PasswordBox>
                 <Button Name="BtnReg" Content="Регистрация" HorizontalAlignment="Right" Click="BtnReg_Click"></Button>
             </StackPanel>
         </StackPanel>

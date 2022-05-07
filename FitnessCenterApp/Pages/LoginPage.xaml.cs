@@ -49,7 +49,7 @@ namespace FitnessCenterApp.Pages
                         this.NavigationService.Navigate(new SchedulePageAdmin());
                         break;
                     case 2:
-                        this.NavigationService.Navigate(new SchedulePage());
+                        this.NavigationService.Navigate(new PostLoginPage());
                         break;
                 }
             }

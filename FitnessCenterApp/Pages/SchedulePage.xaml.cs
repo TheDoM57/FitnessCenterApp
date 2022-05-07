@@ -12,37 +12,24 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FitnessCenterApp.Model;
 
 namespace FitnessCenterApp.Pages
 {
     /// <summary>
     /// Логика взаимодействия для SchedulePage.xaml
     /// </summary>
-    public partial class SchedulePage : Page
+    public partial class SchedulePage : Page, IPostLoginPage
     {
+        public int currentGymType
+        {
+            set
+            {
+            }
+        }
         public SchedulePage()
         {
             InitializeComponent();
-        }
-
-        private void BtnExit_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new StartPage());
-        }
-
-        private void ScheduleBtn_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new SchedulePage());
-        }
-
-        private void TrainerListBtn_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new TrainerListPage());
-        }
-
-        private void RequestsBtn_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new RequestsPage());
         }
     }
 }

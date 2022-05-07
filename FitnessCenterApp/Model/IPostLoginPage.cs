@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace FitnessCenterApp.Model
 {
-   public class Core
+    internal interface IPostLoginPage
     {
-        public FitnessCenterBaseEntities context = new FitnessCenterBaseEntities();
+        int currentGymType { set; }
     }
 }

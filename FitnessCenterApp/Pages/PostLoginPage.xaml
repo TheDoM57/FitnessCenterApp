@@ -1,0 +1,39 @@
+﻿<Page x:Class="FitnessCenterApp.Pages.PostLoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FitnessCenterApp.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1000"
+      Title="PostLoginPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="130"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Rectangle Fill="{StaticResource AccentColor}"/>
+        <Rectangle Fill="{StaticResource AccentColor}" Grid.Row="2"/>
+        <TextBlock x:Name="TitleText" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource TitleText}" Grid.Row="0"></TextBlock>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250px"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <StackPanel Background="#d6d6d6">
+                    <ComboBox x:Name="GymTypeComboBox" SelectionChanged="GymTypeComboBox_SelectionChanged"></ComboBox>
+                    <Button x:Name="ScheduleBtn" Content="Расписание" Click="ScheduleBtn_Click" HorizontalAlignment="Center"></Button>
+                    <Button x:Name="TrainerListBtn" Content="Список тренеров" Click="TrainerListBtn_Click" HorizontalAlignment="Center"></Button>
+                    <Button x:Name="RequestsBtn" Content="Заявки" Click="RequestsBtn_Click" HorizontalAlignment="Center"></Button>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Frame x:Name="SubFrame" NavigationUIVisibility="Hidden"/>
+            </Grid>
+        </Grid>
+        <Button x:Name="BtnExit" Content="Выйти" Click="BtnExit_Click" HorizontalAlignment="Right" Grid.Row="2"></Button>
+    </Grid>
+</Page>

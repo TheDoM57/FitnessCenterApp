@@ -1,5 +1,4 @@
-﻿using FitnessCenterApp.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,17 +12,30 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FitnessCenterApp.Model;
 
 namespace FitnessCenterApp.Pages
 {
     /// <summary>
     /// Логика взаимодействия для TrainerListPage.xaml
     /// </summary>
-    public partial class TrainerListPage : Page
+    public partial class TrainerListPage : Page, IPostLoginPage
     {
-        Core db = new Core();
+        Core db;
         List<Trainer> arrayTrainer;
-        public TrainerListPage()
+        public int currentGymType {
+            get { return _currentGymType; }
+            set
+            {
+                if (_currentGymType == value)
+                    return;
+                _currentGymType = value;
+                List<Trainer> trainersOfCurrentGym = arrayTrainer.FindAll(arrayTrainer => arrayTrainer.SpecializationId == value);
+                TrainerListView.ItemsSource = trainersOfCurrentGym;
+            }
+        }
+        private int _currentGymType;
+        private void initTrainetListPage(Core db)
         {
             InitializeComponent();
 
@@ -32,38 +44,14 @@ namespace FitnessCenterApp.Pages
             {
                 Console.WriteLine(item.Name);
             }
-            TrainerListView.ItemsSource = arrayTrainer;
-
-            TrainerGymTypeComboBox.ItemsSource = db.context.Specialization.ToList();
-            TrainerGymTypeComboBox.DisplayMemberPath = "Specialization";           
         }
-
-        private void BtnExit_Click(object sender, RoutedEventArgs e)
+        public TrainerListPage()
         {
-            NavigationService.Navigate(new StartPage());
+            initTrainetListPage(new Core());
         }
-
-        private void TrainerListBtn_Click(object sender, RoutedEventArgs e)
+        public TrainerListPage(Core db)
         {
-            NavigationService.Navigate(new TrainerListPage());
-        }
-
-        private void ScheduleBtn_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new SchedulePage());
-        }
-
-        private void RequestsBtn_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new RequestsPage());
-        }
-
-        private void TrainerGymTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            TrainerGymTypeComboBox.SelectedValuePath = "Id";
-            int specialization = Convert.ToInt32(TrainerGymTypeComboBox.SelectedValue);
-            arrayTrainer= arrayTrainer.Where(x => x.SpecializationId == specialization).ToList();
-            TrainerListView.ItemsSource = arrayTrainer;
+            initTrainetListPage(db);
         }
     }
 }
