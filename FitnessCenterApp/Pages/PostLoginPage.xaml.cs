@@ -24,6 +24,7 @@ namespace FitnessCenterApp.Pages
         Core db = new Core();
         private IPostLoginPage[] _pages = new IPostLoginPage[3];
         private String[] _pageNames = new String[3];
+        private Users user;
         private enum CurrentPage
         {
             SchedulePage = 0,
@@ -43,15 +44,17 @@ namespace FitnessCenterApp.Pages
                 TitleText.Text = _pageNames[(int) value];
             }
         }
-        public PostLoginPage()
+        public PostLoginPage(Users currentUser)
         {
             InitializeComponent();
+            user = currentUser;
+            Console.WriteLine(currentUser.RoleId);
             _pages[0] = new SchedulePage();
-            _pages[1] = new TrainerListPage(db);
-            _pages[2] = new RequestsPage();
+            _pages[1] = new TrainerListPage();
+            _pages[2] = new RequestsPage(db, currentUser);
             _pageNames[0] = "Расписание";
-            _pageNames[1] = "Список тренеров";
-            _pageNames[2] = "Отправленные заявки";
+            _pageNames[1] = "Мои тренеры";
+            _pageNames[2] = "Отправить заявку";
             currentPage = CurrentPage.SchedulePage;
             GymTypeComboBox.ItemsSource = db.context.Specialization.ToList();
             GymTypeComboBox.DisplayMemberPath = "SpecializationName";

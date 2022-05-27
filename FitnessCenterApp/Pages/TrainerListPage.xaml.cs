@@ -17,41 +17,19 @@ using FitnessCenterApp.Model;
 namespace FitnessCenterApp.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для TrainerListPage.xaml
+    /// Логика взаимодействия для RequestsPage.xaml
     /// </summary>
     public partial class TrainerListPage : Page, IPostLoginPage
     {
-        Core db;
-        List<Trainer> arrayTrainer;
-        public int currentGymType {
-            get { return _currentGymType; }
+        public int currentGymType
+        {
             set
             {
-                if (_currentGymType == value)
-                    return;
-                _currentGymType = value;
-                List<Trainer> trainersOfCurrentGym = arrayTrainer.FindAll(arrayTrainer => arrayTrainer.SpecializationId == value);
-                TrainerListView.ItemsSource = trainersOfCurrentGym;
-            }
-        }
-        private int _currentGymType;
-        private void initTrainetListPage(Core db)
-        {
-            InitializeComponent();
-
-            arrayTrainer = db.context.Trainer.ToList();
-            foreach (var item in arrayTrainer)
-            {
-                Console.WriteLine(item.Name);
             }
         }
         public TrainerListPage()
         {
-            initTrainetListPage(new Core());
-        }
-        public TrainerListPage(Core db)
-        {
-            initTrainetListPage(db);
+            InitializeComponent();
         }
     }
 }

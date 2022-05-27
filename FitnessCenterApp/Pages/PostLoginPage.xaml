@@ -26,7 +26,7 @@
                 <StackPanel Background="#d6d6d6">
                     <ComboBox x:Name="GymTypeComboBox" SelectionChanged="GymTypeComboBox_SelectionChanged"></ComboBox>
                     <Button x:Name="ScheduleBtn" Content="Расписание" Click="ScheduleBtn_Click" HorizontalAlignment="Center"></Button>
-                    <Button x:Name="TrainerListBtn" Content="Список тренеров" Click="TrainerListBtn_Click" HorizontalAlignment="Center"></Button>
+                    <Button x:Name="TrainerListBtn" Content="Мои тренеры" Click="TrainerListBtn_Click" HorizontalAlignment="Center"></Button>
                     <Button x:Name="RequestsBtn" Content="Заявки" Click="RequestsBtn_Click" HorizontalAlignment="Center"></Button>
                 </StackPanel>
             </Grid>

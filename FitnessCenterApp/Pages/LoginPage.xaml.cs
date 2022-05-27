@@ -34,24 +34,52 @@ namespace FitnessCenterApp.Pages
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            int result = db.context.Users.Where(x => x.UserName == LoginTextBox.Text && x.UserPassword == PasswordTextBox.Password).Count();
-
-            if (result == 0)
+            if (LoginTextBox.Text == null || !PhoneNumberManagement.IsNumberCorrect(LoginTextBox.Text))
             {
-                MessageBox.Show("Такой пользователь отсутствует", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Некорректный номер телефона", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
-            else
+            if (PasswordTextBox.Password == null)
             {
-                Users activeUser = db.context.Users.Where(x => x.UserName == LoginTextBox.Text && x.UserPassword == PasswordTextBox.Password).FirstOrDefault();
-                switch (activeUser.RoleId)
-                {
-                    case 1:
-                        this.NavigationService.Navigate(new SchedulePageAdmin());
-                        break;
-                    case 2:
-                        this.NavigationService.Navigate(new PostLoginPage());
-                        break;
-                }
+                MessageBox.Show("Введите пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            long phoneNumber = PhoneNumberManagement.StringToNumber(LoginTextBox.Text);
+            Users activeUser;
+            try
+            {
+                 activeUser = db.context.Users.First(x => x.PhoneNumber == phoneNumber);
+            }
+            catch (ArgumentNullException)
+            {
+                MessageBox.Show("Такой пользователь отсутствует", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            byte[] salt = new byte[16];
+            Array.Copy(activeUser.Password, 24, salt, 0, 16);
+            byte[] hash = PasswordManagement.getPasswordHashWithSalt(PasswordTextBox.Password, salt);
+
+            // Для избежания перебора по времени отклика
+            int differentBytesCount = 0;
+            for (int i = 0; i < 40; ++i)
+            {
+                if (hash[i] != activeUser.Password[i])
+                    ++differentBytesCount;
+            }
+            if (differentBytesCount > 0)
+            {
+                MessageBox.Show("Неверный пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            switch (activeUser.RoleId)
+            {
+                case 1:
+                    this.NavigationService.Navigate(new SchedulePageAdmin());
+                    break;
+                case 2:
+                case 3:
+                    this.NavigationService.Navigate(new PostLoginPage(activeUser));
+                    break;
             }
         }
     }

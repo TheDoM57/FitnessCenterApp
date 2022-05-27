@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FitnessCenterApp.Model
+namespace FitnessCenterApp.Pages
 {
     internal interface IPostLoginPage
     {

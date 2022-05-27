@@ -32,11 +32,15 @@
             </StackPanel>
             <StackPanel>
                 <TextBlock Text="Пол:" Style="{StaticResource DataTextBlock}"></TextBlock>
-                <ComboBox x:Name="GenderComboBox" SelectionChanged="GenderComboBox_SelectionChanged" />
+                <ComboBox x:Name="GenderComboBox" SelectedValue="{Binding GenderId}"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Номер телефона:" Style="{StaticResource DataTextBlock}"></TextBlock>
+                <TextBox x:Name="PhoneNumber"/>
             </StackPanel>
             <StackPanel>
                 <TextBlock Text="Пароль:" Style="{StaticResource DataTextBlock}"></TextBlock>
-                <PasswordBox></PasswordBox>
+                <PasswordBox x:Name="Password"></PasswordBox>
                 <Button Name="BtnReg" Content="Регистрация" HorizontalAlignment="Right" Click="BtnReg_Click"></Button>
             </StackPanel>
         </StackPanel>

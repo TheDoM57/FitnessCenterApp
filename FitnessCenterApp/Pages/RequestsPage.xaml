@@ -8,6 +8,33 @@
       d:DesignHeight="800" d:DesignWidth="1000"
       Title="RequestsPage">
 
-    <StackPanel Grid.Column="1" x:Name="DataTextBlock" HorizontalAlignment="Center" VerticalAlignment="Center">
-    </StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ListView ScrollViewer.VerticalScrollBarVisibility="Auto" x:Name="TrainerListView" Grid.Row="0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Name}" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20px"></TextBlock>
+                        <TextBlock Text="{Binding Surname}"  Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20px"></TextBlock>
+                    </Grid>
+                </DataTemplate>
+
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="600"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="BtnRejectRequest" Content="Отклонить заявку" Click="BtnRejectRequest_Click" HorizontalAlignment="Left" Grid.Column="1"></Button>
+            <Button x:Name="BtnSendRequest" Click="BtnSendRequest_Click" HorizontalAlignment="Right" Grid.Column="1"></Button>
+        </Grid>
+    </Grid>
 </Page>

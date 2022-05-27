@@ -8,22 +8,6 @@
       d:DesignHeight="800" d:DesignWidth="1000"
       Title="TrainerListPage">
 
-
-    <ListView ScrollViewer.VerticalScrollBarVisibility="Auto" x:Name="TrainerListView">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="{Binding Name}" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20px"></TextBlock>
-                    <TextBlock Text="{Binding Surname}"  Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20px"></TextBlock>
-                </Grid>
-            </DataTemplate>
-
-        </ListView.ItemTemplate>
-
-
-    </ListView>
+    <StackPanel Grid.Column="1" x:Name="DataTextBlock" HorizontalAlignment="Center" VerticalAlignment="Center">
+    </StackPanel>
 </Page>
