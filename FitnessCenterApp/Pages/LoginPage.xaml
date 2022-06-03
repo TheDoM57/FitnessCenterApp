@@ -20,11 +20,11 @@
         <StackPanel Grid.Row="1" x:Name="DataTextBlock" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel>
                 <TextBlock Text="Логин (номер телефона):" Style="{StaticResource DataTextBlock}"/>
-                <TextBox Name="LoginTextBox" Text="+79581369812"/>
+                <TextBox Name="LoginTextBox"/>
             </StackPanel>
             <StackPanel>
                 <TextBlock Text="Пароль:" Style="{StaticResource DataTextBlock}"/>
-                <PasswordBox Name="PasswordTextBox" Password="88g7143paks"/>
+                <PasswordBox Name="PasswordTextBox"/>
             </StackPanel>
             <Button x:Name="BtnLogin" Content="Войти" HorizontalAlignment="Left" Click="BtnLogin_Click"/>
         </StackPanel>
