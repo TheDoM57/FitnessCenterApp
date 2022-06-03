@@ -22,9 +22,7 @@ public partial class Requests
     public Requests()
     {
 
-        this.ClientRequests = new HashSet<ClientRequests>();
-
-        this.TrainerRequests = new HashSet<TrainerRequests>();
+        this.Client = new HashSet<Client>();
 
     }
 
@@ -35,21 +33,21 @@ public partial class Requests
 
     public int ClientId { get; set; }
 
-    public int Status { get; set; }
+    public int StatusId { get; set; }
+
+    public string Reason { get; set; }
 
 
-
-    public virtual Client Client { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-    public virtual ICollection<ClientRequests> ClientRequests { get; set; }
+    public virtual ICollection<Client> Client { get; set; }
+
+    public virtual Client Client1 { get; set; }
+
+    public virtual RequestStatus RequestStatus { get; set; }
 
     public virtual Trainer Trainer { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<TrainerRequests> TrainerRequests { get; set; }
 
 }
 

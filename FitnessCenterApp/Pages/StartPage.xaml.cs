@@ -27,7 +27,7 @@ namespace FitnessCenterApp.Pages
 
         private void RegBtn_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new RegistrationPage());
+            NavigationService.Navigate(new CommonLayout("Регистрация", new RegistrationPage(), "На главную", this, CommonLayoutGoToType.ReplaceItself));
         }
 
         private void LoginBtn_Click(object sender, RoutedEventArgs e)

@@ -47,16 +47,6 @@ namespace FitnessCenterApp
             DisableMaximizeButton();
         }
 
-        private void RegBtn_Click(object sender, RoutedEventArgs e)
-        {
-            MainFrame.Navigate(new RegistrationPage());
-        }
-
-        private void LoginBtn_Click(object sender, RoutedEventArgs e)
-        {
-            MainFrame.Navigate(new LoginPage());
-        }
-
         private void DisableMaximizeButton()
         {
             if (_windowHandle == IntPtr.Zero)

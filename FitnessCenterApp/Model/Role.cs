@@ -22,7 +22,7 @@ public partial class Role
     public Role()
     {
 
-        this.Users = new HashSet<Users>();
+        this.User = new HashSet<User>();
 
     }
 
@@ -35,7 +35,7 @@ public partial class Role
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-    public virtual ICollection<Users> Users { get; set; }
+    public virtual ICollection<User> User { get; set; }
 
 }
 

@@ -10,15 +10,15 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="130"></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition MinHeight="40" MaxHeight="100"></RowDefinition>
+            <RowDefinition MinHeight="540"></RowDefinition>
+            <RowDefinition MinHeight="30" MaxHeight="80"></RowDefinition>
         </Grid.RowDefinitions>
         <Rectangle Fill="{StaticResource AccentColor}"/>
         <TextBlock Text="Фитнес центр" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource TitleText}"></TextBlock>
-        <Image Source="../Assets/Images/GymMain.jpg" Grid.Row="1"></Image>
+        <Image Source="../Assets/Images/GymMain.jpg" Grid.Row="1" Margin="0" MaxHeight="540"></Image>
         <Rectangle Fill="{StaticResource AccentColor}" Grid.Row="2"/>
-        <Button Name="RegBtn" Content="Регистрация" Grid.Row="2" HorizontalAlignment="Left" Click="RegBtn_Click"></Button>
-        <Button Name="LoginBtn" Content="Вход" Grid.Row="2" HorizontalAlignment="Right" Click="LoginBtn_Click"></Button>
+        <Button Name="RegBtn" Content="Регистрация" Grid.Row="2" HorizontalAlignment="Left" Click="RegBtn_Click" Style="{StaticResource NoVerticalMarginButton}"></Button>
+        <Button Name="LoginBtn" Content="Вход" Grid.Row="2" HorizontalAlignment="Right" Click="LoginBtn_Click" Style="{StaticResource NoVerticalMarginButton}"></Button>
     </Grid>
 </Page>

@@ -34,11 +34,15 @@ public partial class FitnessCenterBaseEntities : DbContext
 
     public virtual DbSet<Client> Client { get; set; }
 
-    public virtual DbSet<ClientRequests> ClientRequests { get; set; }
+    public virtual DbSet<Exercise> Exercise { get; set; }
 
     public virtual DbSet<Gender> Gender { get; set; }
 
+    public virtual DbSet<Photo> Photo { get; set; }
+
     public virtual DbSet<Requests> Requests { get; set; }
+
+    public virtual DbSet<RequestStatus> RequestStatus { get; set; }
 
     public virtual DbSet<Role> Role { get; set; }
 
@@ -46,9 +50,7 @@ public partial class FitnessCenterBaseEntities : DbContext
 
     public virtual DbSet<Trainer> Trainer { get; set; }
 
-    public virtual DbSet<TrainerRequests> TrainerRequests { get; set; }
-
-    public virtual DbSet<Users> Users { get; set; }
+    public virtual DbSet<User> User { get; set; }
 
 }
 

@@ -21,7 +21,7 @@ namespace FitnessCenterApp.Pages
     /// </summary>
     public partial class LoginPage : Page
     {
-        Core db = new Core();
+        Core db = DBmanagement.db;
         public LoginPage()
         {
             InitializeComponent();
@@ -45,12 +45,12 @@ namespace FitnessCenterApp.Pages
                 return;
             }
             long phoneNumber = PhoneNumberManagement.StringToNumber(LoginTextBox.Text);
-            Users activeUser;
+            User activeUser;
             try
             {
-                 activeUser = db.context.Users.First(x => x.PhoneNumber == phoneNumber);
+                 activeUser = db.context.User.First(x => x.PhoneNumber == phoneNumber);
             }
-            catch (ArgumentNullException)
+            catch (InvalidOperationException)
             {
                 MessageBox.Show("Такой пользователь отсутствует", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -73,12 +73,20 @@ namespace FitnessCenterApp.Pages
             }
             switch (activeUser.RoleId)
             {
+                case 0:
+                    Page console = new AdminConsole();
+                    this.NavigationService.Navigate(new CommonLayout("Консоль администратора", console,
+                                                    "Выйти", new StartPage(), CommonLayoutGoToType.ReplaceItself,
+                                                    "На главную", console, CommonLayoutGoToType.ChangeFrameContent));
+                    break;
                 case 1:
-                    this.NavigationService.Navigate(new SchedulePageAdmin());
+                    this.NavigationService.Navigate(new PostLoginPage(activeUser));
                     break;
                 case 2:
-                case 3:
-                    this.NavigationService.Navigate(new PostLoginPage(activeUser));
+                    Page trainer = new TrainerPage(activeUser.Trainer);
+                    this.NavigationService.Navigate(new CommonLayout("Кабинет тренера", trainer,
+                                                    "Выйти", new StartPage(), CommonLayoutGoToType.ReplaceItself,
+                                                    "На главную", trainer, CommonLayoutGoToType.ChangeFrameContent));
                     break;
             }
         }

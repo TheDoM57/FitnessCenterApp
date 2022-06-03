@@ -15,24 +15,28 @@ namespace FitnessCenterApp.Model
 using System;
     using System.Collections.Generic;
     
-public partial class Users
+public partial class Exercise
 {
 
     public int Id { get; set; }
 
-    public int UserId { get; set; }
+    public int ClientId { get; set; }
 
-    public long PhoneNumber { get; set; }
+    public int TrainerId { get; set; }
 
-    public byte[] Password { get; set; }
+    public string ExerciseType { get; set; }
 
-    public int RoleId { get; set; }
+    public int RepeatOnceEvery { get; set; }
+
+    public int NumberOfSets { get; set; }
+
+    public int RepeatsPerSet { get; set; }
+
+    public System.DateTime BeginAt { get; set; }
 
 
 
     public virtual Client Client { get; set; }
-
-    public virtual Role Role { get; set; }
 
     public virtual Trainer Trainer { get; set; }
 

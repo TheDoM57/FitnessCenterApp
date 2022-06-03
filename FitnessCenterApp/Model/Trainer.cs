@@ -22,9 +22,11 @@ public partial class Trainer
     public Trainer()
     {
 
+        this.Exercise = new HashSet<Exercise>();
+
         this.Requests = new HashSet<Requests>();
 
-        this.Users = new HashSet<Users>();
+        this.User = new HashSet<User>();
 
     }
 
@@ -35,17 +37,29 @@ public partial class Trainer
 
     public string Surname { get; set; }
 
-    public System.DateTime BirthDate { get; set; }
+    public string Patronymic { get; set; }
+
+    public Nullable<int> PhotoId { get; set; }
+
+    public int PreviousWorkLength { get; set; }
+
+    public System.DateTime EmploymentDate { get; set; }
 
     public int GenderId { get; set; }
 
     public int SpecializationId { get; set; }
 
-    public Nullable<int> RequestPtrId { get; set; }
+    public string WorkAchievements { get; set; }
 
 
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<Exercise> Exercise { get; set; }
 
     public virtual Gender Gender { get; set; }
+
+    public virtual Photo Photo { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
@@ -53,11 +67,9 @@ public partial class Trainer
 
     public virtual Specialization Specialization { get; set; }
 
-    public virtual TrainerRequests TrainerRequests { get; set; }
-
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-    public virtual ICollection<Users> Users { get; set; }
+    public virtual ICollection<User> User { get; set; }
 
 }
 

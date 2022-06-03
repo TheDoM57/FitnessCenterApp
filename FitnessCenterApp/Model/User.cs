@@ -15,27 +15,26 @@ namespace FitnessCenterApp.Model
 using System;
     using System.Collections.Generic;
     
-public partial class Specialization
+public partial class User
 {
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public Specialization()
-    {
-
-        this.Trainer = new HashSet<Trainer>();
-
-    }
-
 
     public int Id { get; set; }
 
-    public string Name { get; set; }
+    public Nullable<int> UserId { get; set; }
+
+    public long PhoneNumber { get; set; }
+
+    public byte[] Password { get; set; }
+
+    public int RoleId { get; set; }
 
 
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    public virtual Client Client { get; set; }
 
-    public virtual ICollection<Trainer> Trainer { get; set; }
+    public virtual Role Role { get; set; }
+
+    public virtual Trainer Trainer { get; set; }
 
 }
 

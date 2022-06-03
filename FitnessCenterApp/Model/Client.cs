@@ -22,9 +22,11 @@ public partial class Client
     public Client()
     {
 
-        this.Requests = new HashSet<Requests>();
+        this.Exercise = new HashSet<Exercise>();
 
-        this.Users = new HashSet<Users>();
+        this.Requests1 = new HashSet<Requests>();
+
+        this.User = new HashSet<User>();
 
     }
 
@@ -35,25 +37,35 @@ public partial class Client
 
     public string Surname { get; set; }
 
+    public string Patronymic { get; set; }
+
+    public Nullable<int> PhotoId { get; set; }
+
     public System.DateTime BirthDate { get; set; }
 
     public int GenderId { get; set; }
 
-    public Nullable<int> RequestPtrId { get; set; }
+    public Nullable<int> RequestId { get; set; }
 
 
-
-    public virtual ClientRequests ClientRequests { get; set; }
 
     public virtual Gender Gender { get; set; }
 
+    public virtual Photo Photo { get; set; }
+
+    public virtual Requests Requests { get; set; }
+
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-    public virtual ICollection<Requests> Requests { get; set; }
+    public virtual ICollection<Exercise> Exercise { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-    public virtual ICollection<Users> Users { get; set; }
+    public virtual ICollection<Requests> Requests1 { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<User> User { get; set; }
 
 }
 

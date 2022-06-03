@@ -15,39 +15,33 @@ namespace FitnessCenterApp.Model
 using System;
     using System.Collections.Generic;
     
-public partial class TrainerRequests
+public partial class Photo
 {
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public TrainerRequests()
+    public Photo()
     {
 
-        this.Trainer = new HashSet<Trainer>();
+        this.Client = new HashSet<Client>();
 
-        this.TrainerRequests1 = new HashSet<TrainerRequests>();
+        this.Trainer = new HashSet<Trainer>();
 
     }
 
 
     public int Id { get; set; }
 
-    public int RequestId { get; set; }
-
-    public Nullable<int> NextId { get; set; }
+    public byte[] ImageData { get; set; }
 
 
 
-    public virtual Requests Requests { get; set; }
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<Client> Client { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<Trainer> Trainer { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<TrainerRequests> TrainerRequests1 { get; set; }
-
-    public virtual TrainerRequests TrainerRequests2 { get; set; }
 
 }
 

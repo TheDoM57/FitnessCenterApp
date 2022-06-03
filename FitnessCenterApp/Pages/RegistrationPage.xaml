@@ -5,45 +5,33 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FitnessCenterApp.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="800" d:DesignWidth="1000"
+      d:DesignHeight="560" d:DesignWidth="400"
       Title="RegistrationPage">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="130"></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="100"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Rectangle Fill="{StaticResource AccentColor}"/>
-        <Rectangle Fill="{StaticResource AccentColor}" Grid.Row="2"/>
-        <TextBlock Text="Регистрация" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource TitleText}" Grid.Row="0"></TextBlock>
-        <StackPanel Grid.Row="1" x:Name="DataTextBlock" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <StackPanel>
-                <TextBlock Text="Имя:" Style="{StaticResource DataTextBlock}"></TextBlock>
-                <TextBox Text="{Binding Name}"/>
-            </StackPanel>
-            <StackPanel>
-                <TextBlock Text="Фамилия:" Style="{StaticResource DataTextBlock}"></TextBlock>
-                <TextBox Text="{Binding Surname}"/>
-            </StackPanel>
-            <StackPanel>
-                <TextBlock Text="Дата рождения:" Style="{StaticResource DataTextBlock}"></TextBlock>
-                <DatePicker SelectedDate="{Binding BirthDate}"/>
-            </StackPanel>
-            <StackPanel>
-                <TextBlock Text="Пол:" Style="{StaticResource DataTextBlock}"></TextBlock>
-                <ComboBox x:Name="GenderComboBox" SelectedValue="{Binding GenderId}"/>
-            </StackPanel>
-            <StackPanel>
-                <TextBlock Text="Номер телефона:" Style="{StaticResource DataTextBlock}"></TextBlock>
-                <TextBox x:Name="PhoneNumber"/>
-            </StackPanel>
-            <StackPanel>
-                <TextBlock Text="Пароль:" Style="{StaticResource DataTextBlock}"></TextBlock>
-                <PasswordBox x:Name="Password"></PasswordBox>
-                <Button Name="BtnReg" Content="Регистрация" HorizontalAlignment="Right" Click="BtnReg_Click"></Button>
-            </StackPanel>
-        </StackPanel>
-        <Button Name="BtnReturnMain" Content="На главную" Click="BtnReturnMain_Click" HorizontalAlignment="Right" Grid.Row="2"></Button>
-    </Grid>
+    <StackPanel x:Name="DataTextBlock" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Button Click="Photo_Click" Height="202" BorderThickness="0" Background="#00000000" Width="400" Margin="0">
+            <Image Source="../Assets/Images/InsertPhoto.png" x:Name="UserPhoto" Height="200" Width="398" AllowDrop="False" HorizontalAlignment="Center"/>
+        </Button>
+        <TextBlock Text="Имя:" Style="{StaticResource DataTextBlock}"/>
+        <TextBox Text="{Binding Name}"/>
+        <TextBlock Text="Фамилия:" Style="{StaticResource DataTextBlock}"/>
+        <TextBox Text="{Binding Surname}"/>
+        <TextBlock Text="Отчество:" Style="{StaticResource DataTextBlock}"/>
+        <TextBox Text="{Binding Patronymic}"/>
+        <TextBlock Text="Номер телефона:" Style="{StaticResource DataTextBlock}"/>
+        <TextBox x:Name="PhoneNumber"/>
+        <TextBlock x:Name="Date" Text="Дата рождения:" Style="{StaticResource DataTextBlock}"/>
+        <DatePicker x:Name="DatePick" SelectedDate="{Binding Path=BirthDate}"/>
+        <TextBlock Text="Пол:" Style="{StaticResource DataTextBlock}"/>
+        <ComboBox x:Name="GenderComboBox" SelectedValue="{Binding GenderId}" SelectedValuePath="Id" DisplayMemberPath="Name"/>
+        <TextBlock Text="Пароль:" Style="{StaticResource DataTextBlock}"/>
+        <PasswordBox x:Name="Password"/>
+        <TextBlock x:Name="SpecializationText" Text="Специализация:" Style="{StaticResource DataTextBlock}" Visibility="Hidden"/>
+        <ComboBox x:Name="SpecializationComboBox" SelectedValue="{Binding SpecializationId}" Visibility="Hidden" SelectedValuePath="Id" DisplayMemberPath="Name"/>
+        <TextBlock x:Name="WorkLengthText" Text="Стаж работы:" Style="{StaticResource DataTextBlock}" Visibility="Hidden"/>
+        <TextBox x:Name="WorkLength" Text="{Binding Path=PreviousWorkLength}" Visibility="Hidden"/>
+        <Separator Height="10" Visibility="Hidden"/>
+        <Button x:Name="BtnReg" Content="Зарегистрироваться" HorizontalAlignment="Center" Style="{StaticResource NoVerticalMarginButton}" Width="Auto"/>
+    </StackPanel>
+
 </Page>

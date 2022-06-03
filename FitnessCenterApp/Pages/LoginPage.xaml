@@ -10,24 +10,24 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="130"></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+            <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
         <Rectangle Fill="{StaticResource AccentColor}"/>
         <Rectangle Fill="{StaticResource AccentColor}" Grid.Row="2"/>
-        <TextBlock Text="Вход" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource TitleText}" Grid.Row="0"></TextBlock>
+        <TextBlock Text="Вход" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource TitleText}" Grid.Row="0"/>
         <StackPanel Grid.Row="1" x:Name="DataTextBlock" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel>
-                <TextBlock Text="Логин:" Style="{StaticResource DataTextBlock}"></TextBlock>
-                <TextBox Name="LoginTextBox">User1</TextBox>
+                <TextBlock Text="Логин (номер телефона):" Style="{StaticResource DataTextBlock}"/>
+                <TextBox Name="LoginTextBox" Text="+79581369812"/>
             </StackPanel>
             <StackPanel>
-                <TextBlock Text="Пароль:" Style="{StaticResource DataTextBlock}"></TextBlock>
-                <PasswordBox Name="PasswordTextBox" Password="User1"></PasswordBox>
+                <TextBlock Text="Пароль:" Style="{StaticResource DataTextBlock}"/>
+                <PasswordBox Name="PasswordTextBox" Password="88g7143paks"/>
             </StackPanel>
-            <Button x:Name="BtnLogin" Content="Войти" HorizontalAlignment="Left" Click="BtnLogin_Click"></Button>
+            <Button x:Name="BtnLogin" Content="Войти" HorizontalAlignment="Left" Click="BtnLogin_Click"/>
         </StackPanel>
-        <Button x:Name="BtnReturnMain" Content="На главную" Click="BtnReturnMain_Click" HorizontalAlignment="Right" Grid.Row="2"></Button>
+        <Button x:Name="BtnReturnMain" Content="На главную" Click="BtnReturnMain_Click" HorizontalAlignment="Right" Grid.Row="2"/>
     </Grid>
 </Page>

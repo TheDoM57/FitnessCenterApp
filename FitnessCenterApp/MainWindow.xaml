@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:FitnessCenterApp"
         mc:Ignorable="d"
         Icon="Assets/Images/Logo.png"
-        Title="I will show you who is the boss of this gym" Height="800" Width="1000" MaxHeight="800" MaxWidth="1000" MinWidth="570" MinHeight="700">
+        Title="I will show you who is the boss of this gym" Height="800" Width="1000" MaxHeight="800" MaxWidth="1000" MinWidth="700" MinHeight="680">
     <Grid>
-        <Frame x:Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="MainFrame" Grid.Row="0" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

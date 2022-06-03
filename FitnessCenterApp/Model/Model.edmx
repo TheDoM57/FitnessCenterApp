@@ -12,33 +12,55 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhotoId" Type="int" />
           <Property Name="BirthDate" Type="date" Nullable="false" />
           <Property Name="GenderId" Type="int" Nullable="false" />
-          <Property Name="RequestPtrId" Type="int" />
+          <Property Name="RequestId" Type="int" />
         </EntityType>
-        <EntityType Name="ClientRequests">
+        <EntityType Name="Exercise">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="RequestId" Type="int" Nullable="false" />
-          <Property Name="NextId" Type="int" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="TrainerId" Type="int" Nullable="false" />
+          <Property Name="ExerciseType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RepeatOnceEvery" Type="int" Nullable="false" />
+          <Property Name="NumberOfSets" Type="int" Nullable="false" />
+          <Property Name="RepeatsPerSet" Type="int" Nullable="false" />
+          <Property Name="BeginAt" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="Gender">
           <Key>
-            <PropertyRef Name="IdGender" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="IdGender" Type="int" Nullable="false" />
-          <Property Name="Name" Type="nchar" MaxLength="1" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Photo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ImageData" Type="varbinary(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Requests">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TrainerId" Type="int" Nullable="false" />
           <Property Name="ClientId" Type="int" Nullable="false" />
-          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="Reason" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RequestStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -52,83 +74,90 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="SpecializationName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Trainer">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Surname" Type="nvarchar" MaxLength="50" />
-          <Property Name="BirthDate" Type="date" Nullable="false" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhotoId" Type="int" />
+          <Property Name="PreviousWorkLength" Type="int" Nullable="false" />
+          <Property Name="EmploymentDate" Type="date" Nullable="false" />
           <Property Name="GenderId" Type="int" Nullable="false" />
           <Property Name="SpecializationId" Type="int" Nullable="false" />
-          <Property Name="RequestPtrId" Type="int" />
+          <Property Name="WorkAchievements" Type="nvarchar" MaxLength="100" />
         </EntityType>
-        <EntityType Name="TrainerRequests">
+        <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="RequestId" Type="int" Nullable="false" />
-          <Property Name="NextId" Type="int" />
-        </EntityType>
-        <EntityType Name="Users">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
           <Property Name="PhoneNumber" Type="bigint" Nullable="false" />
           <Property Name="Password" Type="binary" MaxLength="40" Nullable="false" />
           <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Client_ClientRequests">
-          <End Role="ClientRequests" Type="Self.ClientRequests" Multiplicity="0..1" />
-          <End Role="Client" Type="Self.Client" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ClientRequests">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Client">
-              <PropertyRef Name="RequestPtrId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Client_Gender">
           <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
           <End Role="Client" Type="Self.Client" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Gender">
-              <PropertyRef Name="IdGender" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Client">
               <PropertyRef Name="GenderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ClientRequests_ClientRequests">
-          <End Role="ClientRequests" Type="Self.ClientRequests" Multiplicity="0..1" />
-          <End Role="ClientRequests1" Type="Self.ClientRequests" Multiplicity="*" />
+        <Association Name="FK_Client_Photo">
+          <End Role="Photo" Type="Self.Photo" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ClientRequests">
+            <Principal Role="Photo">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="ClientRequests1">
-              <PropertyRef Name="NextId" />
+            <Dependent Role="Client">
+              <PropertyRef Name="PhotoId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ClientRequests_Requests">
-          <End Role="Requests" Type="Self.Requests" Multiplicity="1" />
-          <End Role="ClientRequests" Type="Self.ClientRequests" Multiplicity="*" />
+        <Association Name="FK_Client_Requests">
+          <End Role="Requests" Type="Self.Requests" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Requests">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="ClientRequests">
+            <Dependent Role="Client">
               <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Exercise_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Exercise" Type="Self.Exercise" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Exercise">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Exercise_Trainer">
+          <End Role="Trainer" Type="Self.Trainer" Multiplicity="1" />
+          <End Role="Exercise" Type="Self.Exercise" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trainer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Exercise">
+              <PropertyRef Name="TrainerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -141,6 +170,18 @@
             </Principal>
             <Dependent Role="Requests">
               <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Requests_RequestStatus">
+          <End Role="RequestStatus" Type="Self.RequestStatus" Multiplicity="1" />
+          <End Role="Requests" Type="Self.Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequestStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Requests">
+              <PropertyRef Name="StatusId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -161,10 +202,22 @@
           <End Role="Trainer" Type="Self.Trainer" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Gender">
-              <PropertyRef Name="IdGender" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Trainer">
               <PropertyRef Name="GenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trainer_Photo">
+          <End Role="Photo" Type="Self.Photo" Multiplicity="0..1" />
+          <End Role="Trainer" Type="Self.Trainer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Photo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trainer">
+              <PropertyRef Name="PhotoId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -180,106 +233,79 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Trainer_TrainerRequests">
-          <End Role="TrainerRequests" Type="Self.TrainerRequests" Multiplicity="0..1" />
-          <End Role="Trainer" Type="Self.Trainer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TrainerRequests">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Trainer">
-              <PropertyRef Name="RequestPtrId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TrainerRequests_Requests">
-          <End Role="Requests" Type="Self.Requests" Multiplicity="1" />
-          <End Role="TrainerRequests" Type="Self.TrainerRequests" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Requests">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="TrainerRequests">
-              <PropertyRef Name="RequestId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TrainerRequests_TrainerRequests">
-          <End Role="TrainerRequests" Type="Self.TrainerRequests" Multiplicity="0..1" />
-          <End Role="TrainerRequests1" Type="Self.TrainerRequests" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TrainerRequests">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="TrainerRequests1">
-              <PropertyRef Name="NextId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Users_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+        <Association Name="FK_User_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Users">
+            <Dependent Role="User">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Users_Role">
+        <Association Name="FK_User_Role">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
-          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Role">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Users">
+            <Dependent Role="User">
               <PropertyRef Name="RoleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Users_Trainer">
-          <End Role="Trainer" Type="Self.Trainer" Multiplicity="1" />
-          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+        <Association Name="FK_User_Trainer">
+          <End Role="Trainer" Type="Self.Trainer" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Trainer">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Users">
+            <Dependent Role="User">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Хранилище FitnessCenterBaseModelContainer">
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ClientRequests" EntityType="Self.ClientRequests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exercise" EntityType="Self.Exercise" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Photo" EntityType="Self.Photo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Requests" EntityType="Self.Requests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequestStatus" EntityType="Self.RequestStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Specialization" EntityType="Self.Specialization" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Trainer" EntityType="Self.Trainer" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TrainerRequests" EntityType="Self.TrainerRequests" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Client_ClientRequests" Association="Self.FK_Client_ClientRequests">
-            <End Role="ClientRequests" EntitySet="ClientRequests" />
-            <End Role="Client" EntitySet="Client" />
-          </AssociationSet>
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Client_Gender" Association="Self.FK_Client_Gender">
             <End Role="Gender" EntitySet="Gender" />
             <End Role="Client" EntitySet="Client" />
           </AssociationSet>
-          <AssociationSet Name="FK_ClientRequests_ClientRequests" Association="Self.FK_ClientRequests_ClientRequests">
-            <End Role="ClientRequests" EntitySet="ClientRequests" />
-            <End Role="ClientRequests1" EntitySet="ClientRequests" />
+          <AssociationSet Name="FK_Client_Photo" Association="Self.FK_Client_Photo">
+            <End Role="Photo" EntitySet="Photo" />
+            <End Role="Client" EntitySet="Client" />
           </AssociationSet>
-          <AssociationSet Name="FK_ClientRequests_Requests" Association="Self.FK_ClientRequests_Requests">
+          <AssociationSet Name="FK_Client_Requests" Association="Self.FK_Client_Requests">
             <End Role="Requests" EntitySet="Requests" />
-            <End Role="ClientRequests" EntitySet="ClientRequests" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Exercise_Client" Association="Self.FK_Exercise_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Exercise" EntitySet="Exercise" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Exercise_Trainer" Association="Self.FK_Exercise_Trainer">
+            <End Role="Trainer" EntitySet="Trainer" />
+            <End Role="Exercise" EntitySet="Exercise" />
           </AssociationSet>
           <AssociationSet Name="FK_Requests_Client" Association="Self.FK_Requests_Client">
             <End Role="Client" EntitySet="Client" />
+            <End Role="Requests" EntitySet="Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Requests_RequestStatus" Association="Self.FK_Requests_RequestStatus">
+            <End Role="RequestStatus" EntitySet="RequestStatus" />
             <End Role="Requests" EntitySet="Requests" />
           </AssociationSet>
           <AssociationSet Name="FK_Requests_Trainer" Association="Self.FK_Requests_Trainer">
@@ -290,33 +316,25 @@
             <End Role="Gender" EntitySet="Gender" />
             <End Role="Trainer" EntitySet="Trainer" />
           </AssociationSet>
+          <AssociationSet Name="FK_Trainer_Photo" Association="Self.FK_Trainer_Photo">
+            <End Role="Photo" EntitySet="Photo" />
+            <End Role="Trainer" EntitySet="Trainer" />
+          </AssociationSet>
           <AssociationSet Name="FK_Trainer_Specialization" Association="Self.FK_Trainer_Specialization">
             <End Role="Specialization" EntitySet="Specialization" />
             <End Role="Trainer" EntitySet="Trainer" />
           </AssociationSet>
-          <AssociationSet Name="FK_Trainer_TrainerRequests" Association="Self.FK_Trainer_TrainerRequests">
-            <End Role="TrainerRequests" EntitySet="TrainerRequests" />
-            <End Role="Trainer" EntitySet="Trainer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TrainerRequests_Requests" Association="Self.FK_TrainerRequests_Requests">
-            <End Role="Requests" EntitySet="Requests" />
-            <End Role="TrainerRequests" EntitySet="TrainerRequests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TrainerRequests_TrainerRequests" Association="Self.FK_TrainerRequests_TrainerRequests">
-            <End Role="TrainerRequests" EntitySet="TrainerRequests" />
-            <End Role="TrainerRequests1" EntitySet="TrainerRequests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Users_Client" Association="Self.FK_Users_Client">
+          <AssociationSet Name="FK_User_Client" Association="Self.FK_User_Client">
             <End Role="Client" EntitySet="Client" />
-            <End Role="Users" EntitySet="Users" />
+            <End Role="User" EntitySet="User" />
           </AssociationSet>
-          <AssociationSet Name="FK_Users_Role" Association="Self.FK_Users_Role">
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
             <End Role="Role" EntitySet="Role" />
-            <End Role="Users" EntitySet="Users" />
+            <End Role="User" EntitySet="User" />
           </AssociationSet>
-          <AssociationSet Name="FK_Users_Trainer" Association="Self.FK_Users_Trainer">
+          <AssociationSet Name="FK_User_Trainer" Association="Self.FK_User_Trainer">
             <End Role="Trainer" EntitySet="Trainer" />
-            <End Role="Users" EntitySet="Users" />
+            <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -325,69 +343,70 @@
       <Schema Namespace="FitnessCenterBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="FitnessCenterBaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Client" EntityType="FitnessCenterBaseModel.Client" />
-          <EntitySet Name="ClientRequests" EntityType="FitnessCenterBaseModel.ClientRequests" />
+          <EntitySet Name="Exercise" EntityType="FitnessCenterBaseModel.Exercise" />
           <EntitySet Name="Gender" EntityType="FitnessCenterBaseModel.Gender" />
+          <EntitySet Name="Photo" EntityType="FitnessCenterBaseModel.Photo" />
           <EntitySet Name="Requests" EntityType="FitnessCenterBaseModel.Requests" />
+          <EntitySet Name="RequestStatus" EntityType="FitnessCenterBaseModel.RequestStatus" />
           <EntitySet Name="Role" EntityType="FitnessCenterBaseModel.Role" />
           <EntitySet Name="Specialization" EntityType="FitnessCenterBaseModel.Specialization" />
           <EntitySet Name="Trainer" EntityType="FitnessCenterBaseModel.Trainer" />
-          <EntitySet Name="TrainerRequests" EntityType="FitnessCenterBaseModel.TrainerRequests" />
-          <EntitySet Name="Users" EntityType="FitnessCenterBaseModel.Users" />
-          <AssociationSet Name="FK_Client_ClientRequests" Association="FitnessCenterBaseModel.FK_Client_ClientRequests">
-            <End Role="ClientRequests" EntitySet="ClientRequests" />
-            <End Role="Client" EntitySet="Client" />
-          </AssociationSet>
+          <EntitySet Name="User" EntityType="FitnessCenterBaseModel.User" />
           <AssociationSet Name="FK_Client_Gender" Association="FitnessCenterBaseModel.FK_Client_Gender">
             <End Role="Gender" EntitySet="Gender" />
             <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_Photo" Association="FitnessCenterBaseModel.FK_Client_Photo">
+            <End Role="Photo" EntitySet="Photo" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_Requests" Association="FitnessCenterBaseModel.FK_Client_Requests">
+            <End Role="Requests" EntitySet="Requests" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Exercise_Client" Association="FitnessCenterBaseModel.FK_Exercise_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Exercise" EntitySet="Exercise" />
           </AssociationSet>
           <AssociationSet Name="FK_Requests_Client" Association="FitnessCenterBaseModel.FK_Requests_Client">
             <End Role="Client" EntitySet="Client" />
             <End Role="Requests" EntitySet="Requests" />
           </AssociationSet>
-          <AssociationSet Name="FK_Users_Client" Association="FitnessCenterBaseModel.FK_Users_Client">
+          <AssociationSet Name="FK_User_Client" Association="FitnessCenterBaseModel.FK_User_Client">
             <End Role="Client" EntitySet="Client" />
-            <End Role="Users" EntitySet="Users" />
+            <End Role="User" EntitySet="User" />
           </AssociationSet>
-          <AssociationSet Name="FK_ClientRequests_ClientRequests" Association="FitnessCenterBaseModel.FK_ClientRequests_ClientRequests">
-            <End Role="ClientRequests" EntitySet="ClientRequests" />
-            <End Role="ClientRequests1" EntitySet="ClientRequests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ClientRequests_Requests" Association="FitnessCenterBaseModel.FK_ClientRequests_Requests">
-            <End Role="Requests" EntitySet="Requests" />
-            <End Role="ClientRequests" EntitySet="ClientRequests" />
+          <AssociationSet Name="FK_Exercise_Trainer" Association="FitnessCenterBaseModel.FK_Exercise_Trainer">
+            <End Role="Trainer" EntitySet="Trainer" />
+            <End Role="Exercise" EntitySet="Exercise" />
           </AssociationSet>
           <AssociationSet Name="FK_Trainer_Gender" Association="FitnessCenterBaseModel.FK_Trainer_Gender">
             <End Role="Gender" EntitySet="Gender" />
             <End Role="Trainer" EntitySet="Trainer" />
           </AssociationSet>
+          <AssociationSet Name="FK_Trainer_Photo" Association="FitnessCenterBaseModel.FK_Trainer_Photo">
+            <End Role="Photo" EntitySet="Photo" />
+            <End Role="Trainer" EntitySet="Trainer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Requests_RequestStatus" Association="FitnessCenterBaseModel.FK_Requests_RequestStatus">
+            <End Role="RequestStatus" EntitySet="RequestStatus" />
+            <End Role="Requests" EntitySet="Requests" />
+          </AssociationSet>
           <AssociationSet Name="FK_Requests_Trainer" Association="FitnessCenterBaseModel.FK_Requests_Trainer">
             <End Role="Trainer" EntitySet="Trainer" />
             <End Role="Requests" EntitySet="Requests" />
           </AssociationSet>
-          <AssociationSet Name="FK_TrainerRequests_Requests" Association="FitnessCenterBaseModel.FK_TrainerRequests_Requests">
-            <End Role="Requests" EntitySet="Requests" />
-            <End Role="TrainerRequests" EntitySet="TrainerRequests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Users_Role" Association="FitnessCenterBaseModel.FK_Users_Role">
+          <AssociationSet Name="FK_User_Role" Association="FitnessCenterBaseModel.FK_User_Role">
             <End Role="Role" EntitySet="Role" />
-            <End Role="Users" EntitySet="Users" />
+            <End Role="User" EntitySet="User" />
           </AssociationSet>
           <AssociationSet Name="FK_Trainer_Specialization" Association="FitnessCenterBaseModel.FK_Trainer_Specialization">
             <End Role="Specialization" EntitySet="Specialization" />
             <End Role="Trainer" EntitySet="Trainer" />
           </AssociationSet>
-          <AssociationSet Name="FK_Trainer_TrainerRequests" Association="FitnessCenterBaseModel.FK_Trainer_TrainerRequests">
-            <End Role="TrainerRequests" EntitySet="TrainerRequests" />
+          <AssociationSet Name="FK_User_Trainer" Association="FitnessCenterBaseModel.FK_User_Trainer">
             <End Role="Trainer" EntitySet="Trainer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Users_Trainer" Association="FitnessCenterBaseModel.FK_Users_Trainer">
-            <End Role="Trainer" EntitySet="Trainer" />
-            <End Role="Users" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TrainerRequests_TrainerRequests" Association="FitnessCenterBaseModel.FK_TrainerRequests_TrainerRequests">
-            <End Role="TrainerRequests" EntitySet="TrainerRequests" />
-            <End Role="TrainerRequests1" EntitySet="TrainerRequests" />
+            <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Client">
@@ -397,47 +416,72 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhotoId" Type="Int32" />
           <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="GenderId" Type="Int32" Nullable="false" />
-          <Property Name="RequestPtrId" Type="Int32" />
-          <NavigationProperty Name="ClientRequests" Relationship="FitnessCenterBaseModel.FK_Client_ClientRequests" FromRole="Client" ToRole="ClientRequests" />
+          <Property Name="RequestId" Type="Int32" />
           <NavigationProperty Name="Gender" Relationship="FitnessCenterBaseModel.FK_Client_Gender" FromRole="Client" ToRole="Gender" />
-          <NavigationProperty Name="Requests" Relationship="FitnessCenterBaseModel.FK_Requests_Client" FromRole="Client" ToRole="Requests" />
-          <NavigationProperty Name="Users" Relationship="FitnessCenterBaseModel.FK_Users_Client" FromRole="Client" ToRole="Users" />
+          <NavigationProperty Name="Photo" Relationship="FitnessCenterBaseModel.FK_Client_Photo" FromRole="Client" ToRole="Photo" />
+          <NavigationProperty Name="Requests" Relationship="FitnessCenterBaseModel.FK_Client_Requests" FromRole="Client" ToRole="Requests" />
+          <NavigationProperty Name="Exercise" Relationship="FitnessCenterBaseModel.FK_Exercise_Client" FromRole="Client" ToRole="Exercise" />
+          <NavigationProperty Name="Requests1" Relationship="FitnessCenterBaseModel.FK_Requests_Client" FromRole="Client" ToRole="Requests" />
+          <NavigationProperty Name="User" Relationship="FitnessCenterBaseModel.FK_User_Client" FromRole="Client" ToRole="User" />
         </EntityType>
-        <EntityType Name="ClientRequests">
+        <EntityType Name="Exercise">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="RequestId" Type="Int32" Nullable="false" />
-          <Property Name="NextId" Type="Int32" />
-          <NavigationProperty Name="Client" Relationship="FitnessCenterBaseModel.FK_Client_ClientRequests" FromRole="ClientRequests" ToRole="Client" />
-          <NavigationProperty Name="ClientRequests1" Relationship="FitnessCenterBaseModel.FK_ClientRequests_ClientRequests" FromRole="ClientRequests" ToRole="ClientRequests1" />
-          <NavigationProperty Name="ClientRequests2" Relationship="FitnessCenterBaseModel.FK_ClientRequests_ClientRequests" FromRole="ClientRequests1" ToRole="ClientRequests" />
-          <NavigationProperty Name="Requests" Relationship="FitnessCenterBaseModel.FK_ClientRequests_Requests" FromRole="ClientRequests" ToRole="Requests" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="TrainerId" Type="Int32" Nullable="false" />
+          <Property Name="ExerciseType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RepeatOnceEvery" Type="Int32" Nullable="false" />
+          <Property Name="NumberOfSets" Type="Int32" Nullable="false" />
+          <Property Name="RepeatsPerSet" Type="Int32" Nullable="false" />
+          <Property Name="BeginAt" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Client" Relationship="FitnessCenterBaseModel.FK_Exercise_Client" FromRole="Exercise" ToRole="Client" />
+          <NavigationProperty Name="Trainer" Relationship="FitnessCenterBaseModel.FK_Exercise_Trainer" FromRole="Exercise" ToRole="Trainer" />
         </EntityType>
         <EntityType Name="Gender">
           <Key>
-            <PropertyRef Name="IdGender" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="IdGender" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="Client" Relationship="FitnessCenterBaseModel.FK_Client_Gender" FromRole="Gender" ToRole="Client" />
           <NavigationProperty Name="Trainer" Relationship="FitnessCenterBaseModel.FK_Trainer_Gender" FromRole="Gender" ToRole="Trainer" />
+        </EntityType>
+        <EntityType Name="Photo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImageData" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Client" Relationship="FitnessCenterBaseModel.FK_Client_Photo" FromRole="Photo" ToRole="Client" />
+          <NavigationProperty Name="Trainer" Relationship="FitnessCenterBaseModel.FK_Trainer_Photo" FromRole="Photo" ToRole="Trainer" />
         </EntityType>
         <EntityType Name="Requests">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TrainerId" Type="Int32" Nullable="false" />
           <Property Name="ClientId" Type="Int32" Nullable="false" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="FitnessCenterBaseModel.FK_Requests_Client" FromRole="Requests" ToRole="Client" />
-          <NavigationProperty Name="ClientRequests" Relationship="FitnessCenterBaseModel.FK_ClientRequests_Requests" FromRole="Requests" ToRole="ClientRequests" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="Reason" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Client" Relationship="FitnessCenterBaseModel.FK_Client_Requests" FromRole="Requests" ToRole="Client" />
+          <NavigationProperty Name="Client1" Relationship="FitnessCenterBaseModel.FK_Requests_Client" FromRole="Requests" ToRole="Client" />
+          <NavigationProperty Name="RequestStatus" Relationship="FitnessCenterBaseModel.FK_Requests_RequestStatus" FromRole="Requests" ToRole="RequestStatus" />
           <NavigationProperty Name="Trainer" Relationship="FitnessCenterBaseModel.FK_Requests_Trainer" FromRole="Requests" ToRole="Trainer" />
-          <NavigationProperty Name="TrainerRequests" Relationship="FitnessCenterBaseModel.FK_TrainerRequests_Requests" FromRole="Requests" ToRole="TrainerRequests" />
+        </EntityType>
+        <EntityType Name="RequestStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Requests" Relationship="FitnessCenterBaseModel.FK_Requests_RequestStatus" FromRole="RequestStatus" ToRole="Requests" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -445,79 +489,95 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Users" Relationship="FitnessCenterBaseModel.FK_Users_Role" FromRole="Role" ToRole="Users" />
+          <NavigationProperty Name="User" Relationship="FitnessCenterBaseModel.FK_User_Role" FromRole="Role" ToRole="User" />
         </EntityType>
         <EntityType Name="Specialization">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="SpecializationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Trainer" Relationship="FitnessCenterBaseModel.FK_Trainer_Specialization" FromRole="Specialization" ToRole="Trainer" />
         </EntityType>
         <EntityType Name="Trainer">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhotoId" Type="Int32" />
+          <Property Name="PreviousWorkLength" Type="Int32" Nullable="false" />
+          <Property Name="EmploymentDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="GenderId" Type="Int32" Nullable="false" />
           <Property Name="SpecializationId" Type="Int32" Nullable="false" />
-          <Property Name="RequestPtrId" Type="Int32" />
+          <Property Name="WorkAchievements" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Exercise" Relationship="FitnessCenterBaseModel.FK_Exercise_Trainer" FromRole="Trainer" ToRole="Exercise" />
           <NavigationProperty Name="Gender" Relationship="FitnessCenterBaseModel.FK_Trainer_Gender" FromRole="Trainer" ToRole="Gender" />
+          <NavigationProperty Name="Photo" Relationship="FitnessCenterBaseModel.FK_Trainer_Photo" FromRole="Trainer" ToRole="Photo" />
           <NavigationProperty Name="Requests" Relationship="FitnessCenterBaseModel.FK_Requests_Trainer" FromRole="Trainer" ToRole="Requests" />
           <NavigationProperty Name="Specialization" Relationship="FitnessCenterBaseModel.FK_Trainer_Specialization" FromRole="Trainer" ToRole="Specialization" />
-          <NavigationProperty Name="TrainerRequests" Relationship="FitnessCenterBaseModel.FK_Trainer_TrainerRequests" FromRole="Trainer" ToRole="TrainerRequests" />
-          <NavigationProperty Name="Users" Relationship="FitnessCenterBaseModel.FK_Users_Trainer" FromRole="Trainer" ToRole="Users" />
+          <NavigationProperty Name="User" Relationship="FitnessCenterBaseModel.FK_User_Trainer" FromRole="Trainer" ToRole="User" />
         </EntityType>
-        <EntityType Name="TrainerRequests">
+        <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="RequestId" Type="Int32" Nullable="false" />
-          <Property Name="NextId" Type="Int32" />
-          <NavigationProperty Name="Requests" Relationship="FitnessCenterBaseModel.FK_TrainerRequests_Requests" FromRole="TrainerRequests" ToRole="Requests" />
-          <NavigationProperty Name="Trainer" Relationship="FitnessCenterBaseModel.FK_Trainer_TrainerRequests" FromRole="TrainerRequests" ToRole="Trainer" />
-          <NavigationProperty Name="TrainerRequests1" Relationship="FitnessCenterBaseModel.FK_TrainerRequests_TrainerRequests" FromRole="TrainerRequests" ToRole="TrainerRequests1" />
-          <NavigationProperty Name="TrainerRequests2" Relationship="FitnessCenterBaseModel.FK_TrainerRequests_TrainerRequests" FromRole="TrainerRequests1" ToRole="TrainerRequests" />
-        </EntityType>
-        <EntityType Name="Users">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
           <Property Name="PhoneNumber" Type="Int64" Nullable="false" />
           <Property Name="Password" Type="Binary" Nullable="false" MaxLength="40" FixedLength="true" />
           <Property Name="RoleId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="FitnessCenterBaseModel.FK_Users_Client" FromRole="Users" ToRole="Client" />
-          <NavigationProperty Name="Role" Relationship="FitnessCenterBaseModel.FK_Users_Role" FromRole="Users" ToRole="Role" />
-          <NavigationProperty Name="Trainer" Relationship="FitnessCenterBaseModel.FK_Users_Trainer" FromRole="Users" ToRole="Trainer" />
+          <NavigationProperty Name="Client" Relationship="FitnessCenterBaseModel.FK_User_Client" FromRole="User" ToRole="Client" />
+          <NavigationProperty Name="Role" Relationship="FitnessCenterBaseModel.FK_User_Role" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="Trainer" Relationship="FitnessCenterBaseModel.FK_User_Trainer" FromRole="User" ToRole="Trainer" />
         </EntityType>
-        <Association Name="FK_Client_ClientRequests">
-          <End Type="FitnessCenterBaseModel.ClientRequests" Role="ClientRequests" Multiplicity="0..1" />
-          <End Type="FitnessCenterBaseModel.Client" Role="Client" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ClientRequests">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Client">
-              <PropertyRef Name="RequestPtrId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Client_Gender">
           <End Type="FitnessCenterBaseModel.Gender" Role="Gender" Multiplicity="1" />
           <End Type="FitnessCenterBaseModel.Client" Role="Client" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Gender">
-              <PropertyRef Name="IdGender" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Client">
               <PropertyRef Name="GenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_Photo">
+          <End Type="FitnessCenterBaseModel.Photo" Role="Photo" Multiplicity="0..1" />
+          <End Type="FitnessCenterBaseModel.Client" Role="Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Photo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="PhotoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_Requests">
+          <End Type="FitnessCenterBaseModel.Requests" Role="Requests" Multiplicity="0..1" />
+          <End Type="FitnessCenterBaseModel.Client" Role="Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Requests">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Exercise_Client">
+          <End Type="FitnessCenterBaseModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="FitnessCenterBaseModel.Exercise" Role="Exercise" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Exercise">
+              <PropertyRef Name="ClientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -533,39 +593,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Users_Client">
-          <End Type="FitnessCenterBaseModel.Client" Role="Client" Multiplicity="1" />
-          <End Type="FitnessCenterBaseModel.Users" Role="Users" Multiplicity="*" />
+        <Association Name="FK_User_Client">
+          <End Type="FitnessCenterBaseModel.Client" Role="Client" Multiplicity="0..1" />
+          <End Type="FitnessCenterBaseModel.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Users">
+            <Dependent Role="User">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ClientRequests_ClientRequests">
-          <End Type="FitnessCenterBaseModel.ClientRequests" Role="ClientRequests" Multiplicity="0..1" />
-          <End Type="FitnessCenterBaseModel.ClientRequests" Role="ClientRequests1" Multiplicity="*" />
+        <Association Name="FK_Exercise_Trainer">
+          <End Type="FitnessCenterBaseModel.Trainer" Role="Trainer" Multiplicity="1" />
+          <End Type="FitnessCenterBaseModel.Exercise" Role="Exercise" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ClientRequests">
+            <Principal Role="Trainer">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="ClientRequests1">
-              <PropertyRef Name="NextId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ClientRequests_Requests">
-          <End Type="FitnessCenterBaseModel.Requests" Role="Requests" Multiplicity="1" />
-          <End Type="FitnessCenterBaseModel.ClientRequests" Role="ClientRequests" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Requests">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ClientRequests">
-              <PropertyRef Name="RequestId" />
+            <Dependent Role="Exercise">
+              <PropertyRef Name="TrainerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -574,10 +622,34 @@
           <End Type="FitnessCenterBaseModel.Trainer" Role="Trainer" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Gender">
-              <PropertyRef Name="IdGender" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Trainer">
               <PropertyRef Name="GenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trainer_Photo">
+          <End Type="FitnessCenterBaseModel.Photo" Role="Photo" Multiplicity="0..1" />
+          <End Type="FitnessCenterBaseModel.Trainer" Role="Trainer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Photo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trainer">
+              <PropertyRef Name="PhotoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Requests_RequestStatus">
+          <End Type="FitnessCenterBaseModel.RequestStatus" Role="RequestStatus" Multiplicity="1" />
+          <End Type="FitnessCenterBaseModel.Requests" Role="Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequestStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Requests">
+              <PropertyRef Name="StatusId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -593,26 +665,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TrainerRequests_Requests">
-          <End Type="FitnessCenterBaseModel.Requests" Role="Requests" Multiplicity="1" />
-          <End Type="FitnessCenterBaseModel.TrainerRequests" Role="TrainerRequests" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Requests">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="TrainerRequests">
-              <PropertyRef Name="RequestId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Users_Role">
+        <Association Name="FK_User_Role">
           <End Type="FitnessCenterBaseModel.Role" Role="Role" Multiplicity="1" />
-          <End Type="FitnessCenterBaseModel.Users" Role="Users" Multiplicity="*" />
+          <End Type="FitnessCenterBaseModel.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Role">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Users">
+            <Dependent Role="User">
               <PropertyRef Name="RoleId" />
             </Dependent>
           </ReferentialConstraint>
@@ -629,39 +689,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Trainer_TrainerRequests">
-          <End Type="FitnessCenterBaseModel.TrainerRequests" Role="TrainerRequests" Multiplicity="0..1" />
-          <End Type="FitnessCenterBaseModel.Trainer" Role="Trainer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TrainerRequests">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Trainer">
-              <PropertyRef Name="RequestPtrId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Users_Trainer">
-          <End Type="FitnessCenterBaseModel.Trainer" Role="Trainer" Multiplicity="1" />
-          <End Type="FitnessCenterBaseModel.Users" Role="Users" Multiplicity="*" />
+        <Association Name="FK_User_Trainer">
+          <End Type="FitnessCenterBaseModel.Trainer" Role="Trainer" Multiplicity="0..1" />
+          <End Type="FitnessCenterBaseModel.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Trainer">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Users">
+            <Dependent Role="User">
               <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TrainerRequests_TrainerRequests">
-          <End Type="FitnessCenterBaseModel.TrainerRequests" Role="TrainerRequests" Multiplicity="0..1" />
-          <End Type="FitnessCenterBaseModel.TrainerRequests" Role="TrainerRequests1" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TrainerRequests">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="TrainerRequests1">
-              <PropertyRef Name="NextId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -674,20 +710,27 @@
           <EntitySetMapping Name="Client">
             <EntityTypeMapping TypeName="FitnessCenterBaseModel.Client">
               <MappingFragment StoreEntitySet="Client">
-                <ScalarProperty Name="RequestPtrId" ColumnName="RequestPtrId" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
                 <ScalarProperty Name="GenderId" ColumnName="GenderId" />
                 <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="PhotoId" ColumnName="PhotoId" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ClientRequests">
-            <EntityTypeMapping TypeName="FitnessCenterBaseModel.ClientRequests">
-              <MappingFragment StoreEntitySet="ClientRequests">
-                <ScalarProperty Name="NextId" ColumnName="NextId" />
-                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+          <EntitySetMapping Name="Exercise">
+            <EntityTypeMapping TypeName="FitnessCenterBaseModel.Exercise">
+              <MappingFragment StoreEntitySet="Exercise">
+                <ScalarProperty Name="BeginAt" ColumnName="BeginAt" />
+                <ScalarProperty Name="RepeatsPerSet" ColumnName="RepeatsPerSet" />
+                <ScalarProperty Name="NumberOfSets" ColumnName="NumberOfSets" />
+                <ScalarProperty Name="RepeatOnceEvery" ColumnName="RepeatOnceEvery" />
+                <ScalarProperty Name="ExerciseType" ColumnName="ExerciseType" />
+                <ScalarProperty Name="TrainerId" ColumnName="TrainerId" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -696,16 +739,33 @@
             <EntityTypeMapping TypeName="FitnessCenterBaseModel.Gender">
               <MappingFragment StoreEntitySet="Gender">
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="IdGender" ColumnName="IdGender" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Photo">
+            <EntityTypeMapping TypeName="FitnessCenterBaseModel.Photo">
+              <MappingFragment StoreEntitySet="Photo">
+                <ScalarProperty Name="ImageData" ColumnName="ImageData" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Requests">
             <EntityTypeMapping TypeName="FitnessCenterBaseModel.Requests">
               <MappingFragment StoreEntitySet="Requests">
-                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
                 <ScalarProperty Name="ClientId" ColumnName="ClientId" />
                 <ScalarProperty Name="TrainerId" ColumnName="TrainerId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestStatus">
+            <EntityTypeMapping TypeName="FitnessCenterBaseModel.RequestStatus">
+              <MappingFragment StoreEntitySet="RequestStatus">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -721,7 +781,7 @@
           <EntitySetMapping Name="Specialization">
             <EntityTypeMapping TypeName="FitnessCenterBaseModel.Specialization">
               <MappingFragment StoreEntitySet="Specialization">
-                <ScalarProperty Name="SpecializationName" ColumnName="SpecializationName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -729,28 +789,22 @@
           <EntitySetMapping Name="Trainer">
             <EntityTypeMapping TypeName="FitnessCenterBaseModel.Trainer">
               <MappingFragment StoreEntitySet="Trainer">
-                <ScalarProperty Name="RequestPtrId" ColumnName="RequestPtrId" />
+                <ScalarProperty Name="WorkAchievements" ColumnName="WorkAchievements" />
                 <ScalarProperty Name="SpecializationId" ColumnName="SpecializationId" />
                 <ScalarProperty Name="GenderId" ColumnName="GenderId" />
-                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="EmploymentDate" ColumnName="EmploymentDate" />
+                <ScalarProperty Name="PreviousWorkLength" ColumnName="PreviousWorkLength" />
+                <ScalarProperty Name="PhotoId" ColumnName="PhotoId" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TrainerRequests">
-            <EntityTypeMapping TypeName="FitnessCenterBaseModel.TrainerRequests">
-              <MappingFragment StoreEntitySet="TrainerRequests">
-                <ScalarProperty Name="NextId" ColumnName="NextId" />
-                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="FitnessCenterBaseModel.Users">
-              <MappingFragment StoreEntitySet="Users">
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="FitnessCenterBaseModel.User">
+              <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />

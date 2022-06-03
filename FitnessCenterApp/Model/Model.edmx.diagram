@@ -4,30 +4,31 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2daa47ad7bf4476f8dcaf92781fb7801" Name="Diagram1" ZoomLevel="74">
-        <EntityTypeShape EntityType="FitnessCenterBaseModel.Client" Width="1.5" PointX="3" PointY="2.875" />
-        <EntityTypeShape EntityType="FitnessCenterBaseModel.ClientRequests" Width="1.5" PointX="7.5" PointY="4.75" />
-        <EntityTypeShape EntityType="FitnessCenterBaseModel.Gender" Width="1.5" PointX="0.75" PointY="3.5" />
-        <EntityTypeShape EntityType="FitnessCenterBaseModel.Requests" Width="1.5" PointX="5.25" PointY="3.125" />
-        <EntityTypeShape EntityType="FitnessCenterBaseModel.Role" Width="1.5" PointX="9.75" PointY="6" />
-        <EntityTypeShape EntityType="FitnessCenterBaseModel.Specialization" Width="1.5" PointX="7.5" PointY="8.625" />
-        <EntityTypeShape EntityType="FitnessCenterBaseModel.Trainer" Width="1.5" PointX="9.75" PointY="1.75" />
-        <EntityTypeShape EntityType="FitnessCenterBaseModel.TrainerRequests" Width="1.5" PointX="7.25" PointY="0.75" />
-        <EntityTypeShape EntityType="FitnessCenterBaseModel.Users" Width="1.5" PointX="12" PointY="2.5" />
-        <AssociationConnector Association="FitnessCenterBaseModel.FK_Client_ClientRequests" />
+      <Diagram DiagramId="2daa47ad7bf4476f8dcaf92781fb7801" Name="Diagram1" ZoomLevel="69">
+        <EntityTypeShape EntityType="FitnessCenterBaseModel.Client" Width="1.5" PointX="6" PointY="7" />
+        <EntityTypeShape EntityType="FitnessCenterBaseModel.Exercise" Width="1.5" PointX="11.25" PointY="7.375" />
+        <EntityTypeShape EntityType="FitnessCenterBaseModel.Gender" Width="1.5" PointX="0.75" PointY="8" />
+        <EntityTypeShape EntityType="FitnessCenterBaseModel.Photo" Width="1.5" PointX="3.75" PointY="3.625" />
+        <EntityTypeShape EntityType="FitnessCenterBaseModel.Requests" Width="1.5" PointX="8.25" PointY="3.5" />
+        <EntityTypeShape EntityType="FitnessCenterBaseModel.RequestStatus" Width="1.5" PointX="6" PointY="2.875" />
+        <EntityTypeShape EntityType="FitnessCenterBaseModel.Role" Width="1.5" PointX="6" PointY="12" />
+        <EntityTypeShape EntityType="FitnessCenterBaseModel.Specialization" Width="1.5" PointX="0.75" PointY="5" />
+        <EntityTypeShape EntityType="FitnessCenterBaseModel.Trainer" Width="1.5" PointX="3" PointY="6.75" />
+        <EntityTypeShape EntityType="FitnessCenterBaseModel.User" Width="1.5" PointX="8.25" PointY="7.625" />
         <AssociationConnector Association="FitnessCenterBaseModel.FK_Client_Gender" />
+        <AssociationConnector Association="FitnessCenterBaseModel.FK_Client_Photo" />
+        <AssociationConnector Association="FitnessCenterBaseModel.FK_Client_Requests" />
+        <AssociationConnector Association="FitnessCenterBaseModel.FK_Exercise_Client" />
         <AssociationConnector Association="FitnessCenterBaseModel.FK_Requests_Client" />
-        <AssociationConnector Association="FitnessCenterBaseModel.FK_Users_Client" />
-        <AssociationConnector Association="FitnessCenterBaseModel.FK_ClientRequests_ClientRequests" />
-        <AssociationConnector Association="FitnessCenterBaseModel.FK_ClientRequests_Requests" />
+        <AssociationConnector Association="FitnessCenterBaseModel.FK_User_Client" />
+        <AssociationConnector Association="FitnessCenterBaseModel.FK_Exercise_Trainer" />
         <AssociationConnector Association="FitnessCenterBaseModel.FK_Trainer_Gender" />
+        <AssociationConnector Association="FitnessCenterBaseModel.FK_Trainer_Photo" />
+        <AssociationConnector Association="FitnessCenterBaseModel.FK_Requests_RequestStatus" />
         <AssociationConnector Association="FitnessCenterBaseModel.FK_Requests_Trainer" />
-        <AssociationConnector Association="FitnessCenterBaseModel.FK_TrainerRequests_Requests" />
-        <AssociationConnector Association="FitnessCenterBaseModel.FK_Users_Role" />
+        <AssociationConnector Association="FitnessCenterBaseModel.FK_User_Role" />
         <AssociationConnector Association="FitnessCenterBaseModel.FK_Trainer_Specialization" />
-        <AssociationConnector Association="FitnessCenterBaseModel.FK_Trainer_TrainerRequests" />
-        <AssociationConnector Association="FitnessCenterBaseModel.FK_Users_Trainer" />
-        <AssociationConnector Association="FitnessCenterBaseModel.FK_TrainerRequests_TrainerRequests" />
+        <AssociationConnector Association="FitnessCenterBaseModel.FK_User_Trainer" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

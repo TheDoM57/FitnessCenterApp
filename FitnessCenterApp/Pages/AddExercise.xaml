@@ -1,0 +1,36 @@
+﻿<Page x:Class="FitnessCenterApp.Pages.AddExercise"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FitnessCenterApp.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AddExercise">
+
+    <Page.Resources>
+        <local:IdToImageConverter x:Key="IdToImageConverter"/>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <!--Не успеваю реализовать сортировку столбцов-->
+        <DataGrid Name="ExercisesGrid" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.Row="0" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Path=ExerciseType}" Width="Auto" Header="Вид упражнения">
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Path=RepeatOnceEvery}" Width="Auto" Header="Повторять раз в (дней)">
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Path=NumberOfSets}" Width="Auto" Header="Число подходов">
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Path=RepeatsPerSet}" Width="Auto" Header="Количество повторений">
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Добавить" Click="AddExercise_Click" Grid.Row="1" HorizontalAlignment="Right" Margin="0, 0, 20, 0" Style="{StaticResource AuxularyButton}"/>
+        <Button Content="Удалить" Click="RmExercise_Click" Grid.Row="1" HorizontalAlignment="Center" Margin="0, 0, 0, 0" Style="{StaticResource AuxularyButton}"/>
+        <Button Content="Сохранить" Click="SaveExercise_Click" Grid.Row="1" HorizontalAlignment="Left" Margin="20, 0, 0, 0" Style="{StaticResource AuxularyButton}"/>
+    </Grid>
+</Page>

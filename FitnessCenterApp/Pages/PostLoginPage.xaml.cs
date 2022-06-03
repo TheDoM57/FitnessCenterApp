@@ -22,9 +22,9 @@ namespace FitnessCenterApp.Pages
     public partial class PostLoginPage : Page
     {
         Core db = new Core();
-        private IPostLoginPage[] _pages = new IPostLoginPage[3];
+        private object[] _pages = new object[3];
         private String[] _pageNames = new String[3];
-        private Users user;
+        private User user;
         private enum CurrentPage
         {
             SchedulePage = 0,
@@ -44,21 +44,23 @@ namespace FitnessCenterApp.Pages
                 TitleText.Text = _pageNames[(int) value];
             }
         }
-        public PostLoginPage(Users currentUser)
+        public PostLoginPage(User currentUser)
         {
             InitializeComponent();
             user = currentUser;
             Console.WriteLine(currentUser.RoleId);
             _pages[0] = new SchedulePage();
             _pages[1] = new TrainerListPage();
-            _pages[2] = new RequestsPage(db, currentUser);
+            _pages[2] = new RequestsPage(currentUser);
             _pageNames[0] = "Расписание";
             _pageNames[1] = "Мои тренеры";
             _pageNames[2] = "Отправить заявку";
             currentPage = CurrentPage.SchedulePage;
-            GymTypeComboBox.ItemsSource = db.context.Specialization.ToList();
-            GymTypeComboBox.DisplayMemberPath = "SpecializationName";
-            GymTypeComboBox.SelectedValuePath = "Id";
+            if (user.Client.Requests.StatusId == 2)
+            {
+                ScheduleBtn.Style = FindResource("PLPButton") as Style;
+                ScheduleBtn.IsHitTestVisible = true;
+            }
         }
 
         private void ScheduleBtn_Click(object sender, RoutedEventArgs e)
@@ -79,19 +81,6 @@ namespace FitnessCenterApp.Pages
         private void BtnExit_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new StartPage());
-        }
-
-        private void SetCurrentGymForSubPages (int currentGymType)
-        {
-            foreach (var page in _pages)
-            {
-                page.currentGymType = currentGymType;
-            }
-        }
-
-        private void GymTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            SetCurrentGymForSubPages((int) GymTypeComboBox.SelectedValue);
         }
     }
 }

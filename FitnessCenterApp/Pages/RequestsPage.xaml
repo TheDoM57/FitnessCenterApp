@@ -4,37 +4,120 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FitnessCenterApp.Pages"
-      mc:Ignorable="d" 
-      d:DesignHeight="800" d:DesignWidth="1000"
+      mc:Ignorable="d"
+      d:DesignHeight="620" d:DesignWidth="750"
       Title="RequestsPage">
-
+    <Page.Resources>
+        <local:IdToImageConverter x:Key="IdToImageConverter"/>
+        <local:TrainerToWorkLengthConverter x:Key="TrainerToWorkLengthConverter"/>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition MinHeight="400"/>
+            <RowDefinition MaxHeight="80" MinHeight="40"/>
         </Grid.RowDefinitions>
-        <ListView ScrollViewer.VerticalScrollBarVisibility="Auto" x:Name="TrainerListView" Grid.Row="0">
-            <ListView.ItemTemplate>
+        <!--Выбранный тренер (не смог сделать лучше этого)-->
+        <StackPanel x:Name="ChoosenTrainer" Visibility="Collapsed">
+            <TextBlock Text="Выбранный тренер:" Style="{StaticResource DataTextBlockTitle}" Grid.Row="0"/>
+            <Grid ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="{Binding PhotoId, Converter={StaticResource IdToImageConverter}}" Height="50"/>
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0">
+                        <TextBlock Text="{Binding Name}" Style="{StaticResource DataTextBlockTitle}"/>
+                        <TextBlock Text="{Binding Patronymic}" Style="{StaticResource DataTextBlockTitle}" Margin="5, 0, 5, 0"/>
+                        <TextBlock Text="{Binding Surname}" Style="{StaticResource DataTextBlockTitle}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1">
+                        <TextBlock Text="Пол:" Margin="0, 0, 5, 0" Style="{StaticResource DataTextBlockKey}"/>
+                        <TextBlock Text="{Binding Gender.Name}" Style="{StaticResource DataTextBlock}"/>
+                        <TextBlock Text="Специализация:" Margin="15, 0, 5, 0" Style="{StaticResource DataTextBlockKey}"/>
+                        <TextBlock Text="{Binding Specialization.Name}" Style="{StaticResource DataTextBlock}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2">
+                        <TextBlock Text="Стаж работы:" Margin="0, 0, 5, 0" Style="{StaticResource DataTextBlockKey}"/>
+                        <TextBlock Style="{StaticResource DataTextBlock}">
+                            <TextBlock.Text>
+                                <MultiBinding Converter="{StaticResource TrainerToWorkLengthConverter}">
+                                    <Binding Path="EmploymentDate"/>
+                                    <Binding Path="PreviousWorkLength"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <TextBlock Text="Статус заявки:" Margin="15, 0, 5, 0" Style="{StaticResource DataTextBlockKey}"/>
+                        <TextBlock x:Name="RequestState" Style="{StaticResource DataTextBlock}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="3">
+                        <TextBlock Text="Достижения:" Margin="0, 0, 5, 0" Style="{StaticResource DataTextBlockKey}"/>
+                        <TextBlock Text="{Binding WorkAchievements}" Style="{StaticResource DataTextBlock}"/>
+                    </StackPanel>
+                </Grid>
+                <StackPanel Grid.Column="5">
+                    <TextBlock x:Name="ReasonTitle" Text="Цель тренировок:" Margin="0, 0, 0, 5" Style="{StaticResource DataTextBlockKey}"/>
+                    <TextBlock x:Name="ReasonText" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+        <TextBlock Text="Доступные тренеры:" Style="{StaticResource DataTextBlockTitle}" Grid.Row="1"/>
+        <ListBox x:Name="TrainersList" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="2">
+            <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding Name}" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20px"></TextBlock>
-                        <TextBlock Text="{Binding Surname}"  Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20px"></TextBlock>
+                        <Image Source="{Binding PhotoId, Converter={StaticResource IdToImageConverter}}" Height="50"/>
+                        <Grid Grid.Column="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                <TextBlock Text="{Binding Name}" Style="{StaticResource DataTextBlockTitle}"/>
+                                <TextBlock Text="{Binding Patronymic}" Style="{StaticResource DataTextBlockTitle}" Margin="5, 0, 5, 0"/>
+                                <TextBlock Text="{Binding Surname}" Style="{StaticResource DataTextBlockTitle}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                <TextBlock Text="Пол:" Margin="0, 0, 5, 0" Style="{StaticResource DataTextBlockKey}"/>
+                                <TextBlock Text="{Binding Gender.Name}" Style="{StaticResource DataTextBlock}"/>
+                                <TextBlock Text="Специализация:" Margin="15, 0, 5, 0" Style="{StaticResource DataTextBlockKey}"/>
+                                <TextBlock Text="{Binding Specialization.Name}" Style="{StaticResource DataTextBlock}"/>
+                                <TextBlock Text="Стаж работы:" Margin="15, 0, 5, 0" Style="{StaticResource DataTextBlockKey}"/>
+                                <TextBlock Style="{StaticResource DataTextBlock}">
+                                    <TextBlock.Text>
+                                        <MultiBinding Converter="{StaticResource TrainerToWorkLengthConverter}">
+                                            <Binding Path="EmploymentDate"/>
+                                            <Binding Path="PreviousWorkLength"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2">
+                                <TextBlock Text="Достижения:" Margin="0, 0, 5, 0" Style="{StaticResource DataTextBlockKey}"/>
+                                <TextBlock Text="{Binding WorkAchievements}" Style="{StaticResource DataTextBlock}"/>
+                            </StackPanel>
+                        </Grid>
                     </Grid>
                 </DataTemplate>
-
-            </ListView.ItemTemplate>
-        </ListView>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition Width="600"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="BtnRejectRequest" Content="Отклонить заявку" Click="BtnRejectRequest_Click" HorizontalAlignment="Left" Grid.Column="1"></Button>
-            <Button x:Name="BtnSendRequest" Click="BtnSendRequest_Click" HorizontalAlignment="Right" Grid.Column="1"></Button>
+            </ListBox.ItemTemplate>
+        </ListBox>
+            <Button x:Name="ReqBtn" Content="Отправить заявку" Click="BtnSendRequest_Click" HorizontalAlignment="Right" Grid.Row="3" Style="{StaticResource NoVerticalMarginButton}"></Button>
         </Grid>
-    </Grid>
 </Page>
